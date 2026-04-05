@@ -3,106 +3,775 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Dev Assistant</title>
-  <link rel="stylesheet" href="/style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
-  />
+  <title>AI Dev Assistant | Project Showcase</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #fdf2f8;
+      --bg-soft: #fff7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --pink: #ec4899;
+      --pink-dark: #be185d;
+      --pink-soft: #f9a8d4;
+      --pink-light: #fce7f3;
+      --border: #fbcfe8;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      --radius: 20px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, #ffe4f1 0%, transparent 30%),
+        radial-gradient(circle at top right, #ffd6ea 0%, transparent 25%),
+        linear-gradient(180deg, #fff7fb 0%, #fdf2f8 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 18px 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(236, 72, 153, 0.08);
+      position: sticky;
+      top: 14px;
+      z-index: 10;
+    }
+
+    .brand {
+      font-weight: 700;
+      color: var(--pink-dark);
+      letter-spacing: 0.2px;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--pink-dark);
+      background: var(--pink-light);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      right: -80px;
+      top: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(236,72,153,0.18), rgba(236,72,153,0));
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      background: var(--pink-light);
+      color: var(--pink-dark);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: 3rem;
+      line-height: 1.05;
+      color: var(--pink);
+    }
+
+    .hero p {
+      margin: 0 0 18px;
+      color: #4b5563;
+      max-width: 700px;
+      font-size: 1.02rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 700;
+      transition: transform 0.12s ease, background 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      background: var(--pink);
+      color: white;
+    }
+
+    .button.primary:hover {
+      background: #db2777;
+    }
+
+    .button.secondary {
+      background: var(--pink-light);
+      color: var(--pink-dark);
+    }
+
+    .button.secondary:hover {
+      background: var(--pink-soft);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .meta-box {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .meta-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-weight: 700;
+      color: var(--pink-dark);
+    }
+
+    .hero-side {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+      background:
+        linear-gradient(180deg, #ffffff 0%, #fff8fc 100%);
+    }
+
+    .side-card {
+      background: var(--pink-light);
+      border: 1px solid var(--pink-soft);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .side-card h3 {
+      margin: 0 0 10px;
+      color: var(--pink-dark);
+      font-size: 1rem;
+    }
+
+    .side-card p {
+      margin: 0;
+      color: #5b5563;
+      font-size: 0.96rem;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      color: var(--pink-dark);
+      font-size: 1.35rem;
+    }
+
+    .card p {
+      margin: 0 0 12px;
+      color: #4b5563;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .feature-list,
+    .learn-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .feature-list li,
+    .learn-list li {
+      margin: 10px 0;
+      color: #374151;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      background: var(--pink-light);
+      color: var(--pink-dark);
+      border: 1px solid var(--pink-soft);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .screenshots-card {
+      margin-bottom: 22px;
+    }
+
+    .screenshots-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .screenshots-header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 680px;
+    }
+
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .shot {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(236, 72, 153, 0.08);
+    }
+
+    .shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-position: contain;
+      border-radius: 10px;
+      cursor: zoom-in;
+      transition: transform 0.2s ease;
+    }
+
+    .shot img:hover {
+      transform: scale(1.02);
+    }
+
+    .shot-body {
+      padding: 16px;
+    }
+
+    .shot-body h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--pink-dark);
+    }
+
+    .shot-body p {
+      margin: 0;
+      color: #4b5563;
+      font-size: 0.95rem;
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, rgba(236,72,153,0.18), rgba(236,72,153,0));
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .section-grid,
+      .screenshots-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav {
+        justify-content: center;
+      }
+
+      .hero-main,
+      .hero-side,
+      .card {
+        padding: 18px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .screenshots-header {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.lightbox.hidden {
+  display: none;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ec4899;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ec4899;
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}    
+
+  </style>
 </head>
 <body>
   <div class="container">
-    <header class="hero">
-      <h1>AI Dev Assistant</h1>
-      <p>
-        Analyze code with multiple AI providers through one interface.
-      </p>
+    <header class="topbar">
+      <div class="brand">Henna Väätäinen · Project Showcase</div>
+      <nav class="nav">
+        <a href="#overview">Overview</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#features">Features</a>
+        <a href="#tech">Tech Stack</a>
+        <a href="#learning">What I Learned</a>
+      </nav>
     </header>
 
-    <main class="card">
-      <form id="analyzeForm">
-        <div class="grid two-columns">
-          <div class="field">
-            <label for="provider">Provider</label>
-            <select id="provider" name="provider">
-              <option value="ollama">Ollama</option>
-              <option value="openai-compatible">OpenAI-compatible</option>
-            </select>
-          </div>
+    <section class="hero">
+      <div class="hero-main">
+        <div class="eyebrow">AI + Full Stack + Developer Tooling</div>
+        <h1>AI Dev Assistant</h1>
+        <p>
+          AI Dev Assistant on moniprovider web-sovellus, jossa käyttäjä voi liittää koodia,
+          valita analyysitilan ja saada yhdestä käyttöliittymästä
+          <span class="highlight">selityksiä, parannusehdotuksia ja bugianalyysiä</span>.
+        </p>
+        <p>
+          Rakensin projektin, jotta voisin tutkia käytännössä, miten tekoälyä voidaan käyttää
+          osana oikeaa kehitysprosessia eikä vain yksinkertaisena chat-demona.
+          Sovellus tukee lokaalisti ajettavaa Ollamaa ja on rakennettu laajennettavaksi myös
+          OpenAI-yhteensopiviin rajapintoihin.
+        </p>
 
-          <div class="field">
-            <label for="model">Model</label>
-            <input
-              id="model"
-              name="model"
-              type="text"
-              placeholder="e.g. qwen2.5-coder or gpt-4.1-mini"
-            />
-          </div>
+        <div class="hero-buttons">
+          <a class="button primary" href="https://github.com/HenVaa/AI-Dev-Assistant" target="_blank">View GitHub Repository</a>
+          <a class="button secondary" href="#screenshots">View Screenshots</a>
         </div>
 
-        <div id="providerSettings" class="provider-settings"></div>
-
-        <div class="grid two-columns">
-          <div class="field">
-            <label for="language">Language</label>
-            <input
-              id="language"
-              name="language"
-              type="text"
-              value="JavaScript"
-              placeholder="e.g. JavaScript, Python, Java"
-            />
+        <div class="hero-meta">
+          <div class="meta-box">
+            <span class="meta-label">Project Type</span>
+            <span class="meta-value">AI Developer Tool</span>
           </div>
-
-          <div class="field">
-            <label for="mode">Mode</label>
-            <select id="mode" name="mode">
-              <option value="explain">Explain code</option>
-              <option value="improve">Improve code</option>
-              <option value="bugs">Find bugs</option>
-            </select>
+          <div class="meta-box">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Full-Stack Developer</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Focus</span>
+            <span class="meta-value">Multi-provider AI integration</span>
           </div>
         </div>
-
-        <div class="field">
-          <label for="code">Code</label>
-          <textarea
-            id="code"
-            name="code"
-            required
-            placeholder="Paste your code here..."
-          >function greet(name) {
-  if (!name) {
-    return "Hello, guest!";
-  }
-  return "Hello, " + name;
-}
-
-console.log(greet());
-console.log(greet("Henna"));</textarea>
-        </div>
-
-        <div class="actions">
-          <button type="submit" id="submitBtn">Analyze</button>
-          <button type="button" id="clearBtn" class="secondary">Clear</button>
-        </div>
-      </form>
-    </main>
-
-    <section class="card result-card">
-      <div class="result-header">
-        <h2>Result</h2>
-        <button type="button" id="copyBtn" class="secondary">Copy result</button>
       </div>
 
-      <div id="status" class="status">Ready.</div>
-      <div id="result" class="result-output">Your AI response will appear here.</div>
+      <aside class="hero-side">
+        <div class="side-card">
+          <h3>Mikä tekee projektista kiinnostavan?</h3>
+          <p>
+            Sama käyttöliittymä toimii eri AI-providereilla. Projektissa näkyy sekä
+            backend-arkkitehtuurin ajattelu että käytännön UI-toteutus.
+          </p>
+        </div>
+
+        <div class="side-card">
+          <h3>Mitä rakensin itse</h3>
+          <p>
+            Provider-abstraktion, prompttien rakentamisen, API-kutsujen hallinnan,
+            käyttöliittymän, provider-kohtaiset asetukset sekä lopputuloksen esittämisen.
+          </p>
+        </div>
+
+        <div class="side-card">
+          <h3>Miksi tein projektin</h3>
+          <p>
+            Halusin tehdä projektin, joka liittyy suoraan ohjelmistokehitykseen ja osoittaa,
+            että osaan käyttää AI:ta myös osana sovelluksia, en vain käyttäjänä.
+          </p>
+        </div>
+      </aside>
     </section>
+
+    <section id="overview" class="section-grid">
+      <div class="card">
+        <h2>Projektin yleiskatsaus</h2>
+        <p>
+          Tämän projektin idea oli rakentaa käytännöllinen työkalu kehittäjälle.
+          Käyttäjä voi syöttää sovellukseen koodia, valita analyysin tarkoituksen
+          ja saada AI:lta vastauksen helposti luettavassa muodossa.
+        </p>
+        <p>
+          Rakensin toteutuksen niin, ettei se ole sidottu vain yhteen malliin.
+          Sovelluksen taustalla on provider-kohtainen rakenne, jonka avulla samaa
+          käyttöliittymää voi käyttää useiden eri AI-palveluiden kanssa.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Minun roolini</h2>
+        <p>
+          Suunnittelin ja toteutin koko ratkaisun itse. Tämä sisälsi backend-logiikan,
+          API-integraatiot, prompttien suunnittelun, provider-kohtaisten asetusten käsittelyn,
+          käyttöliittymän rakenteen sekä visuaalisen viimeistelyn.
+        </p>
+        <p>
+          Projektin aikana ratkoin myös käytännön integraatio-ongelmia, kuten yhteysasetuksia,
+          lokaalisti ajettavan mallin käyttöä sekä käyttöliittymän toimivuutta ja selkeyttä.
+        </p>
+      </div>
+    </section>
+
+    <section id="screenshots" class="card screenshots-card">
+      <div class="screenshots-header">
+        <div>
+          <h2>Screenshots</h2>
+          <p>
+            Näyttökuvia käyttöliittymästä.
+          </p>
+        </div>
+      </div>
+
+      <div class="screenshots-grid">
+        <article class="shot">
+          <img src="./images/main_view.png" alt="Main application view" />
+          <div class="shot-body">
+            <h3>Päänäkymä (Main view)</h3>
+            <p>
+              Sovelluksen päänäkymä, jossa käyttäjä voi valita providerin, mallin,
+              analyysityypin ja liittää analysoitavan koodin. 
+              
+              (Värimaailmaksi valitsin pinkin, sillä se on lempivärini.)
+            </p>
+          </div>
+        </article>
+
+        <article class="shot">
+          <img src="./images/explain_code.png" alt="AI generated code explanation" />
+          <div class="shot-body">
+            <h3>Generoitu selitys</h3>
+            <p>
+              Esimerkki AI:n tuottamasta koodiselityksestä. Tulos renderöidään selkeästi
+              saman käyttöliittymän sisällä. Oikealla yläpuolella myös "Copy result"-painike.
+            </p>
+          </div>
+        </article>
+
+        <article class="shot">
+          <img src="./images/provider.png" alt="Provider specific settings" />
+          <div class="shot-body">
+            <h3>Palveluntarjoaja (provider) -kohtaiset asetukset</h3>
+            <p>
+              Provider-kohtaiset asetukset muuttuvat valinnan mukaan, mikä tekee käyttöliittymästä
+              joustavan mutta silti yksinkertaisen käyttää.
+
+              Valitessa OpenAI-compatible, järjestelmä kysyy Base URL-osoitetta ja API-key'ta.
+            </p>
+          </div>
+        </article>
+
+        <article class="shot">
+          <img src="./images/analysis_mode.png" alt="Another analysis mode result" />
+          <div class="shot-body">
+            <h3>Erilaiset analyysitilat</h3>
+            <p>
+              Sama työkalu tukee kolmea käyttötarkoitusta: koodin selittämistä,
+              bugien etsimistä ja parannusehdotusten tuottamista.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-grid">
+      <div id="features" class="card">
+        <h2>Key Features</h2>
+        <ul class="feature-list">
+          <li>One interface for multiple AI providers</li>
+          <li>Explain code, improve code, and find bugs</li>
+          <li>Local AI support through Ollama</li>
+          <li>Provider-specific settings in the UI</li>
+          <li>Backend structure designed for extensibility</li>
+          <li>Developer-focused use case instead of a generic AI chat demo</li>
+        </ul>
+      </div>
+
+      <div id="tech" class="card">
+        <h2>Tech Stack</h2>
+        <p>
+          Projektissa yhdistyy sekä frontend- että backend-kehitys sekä AI-integraatioiden
+          käytännön toteutus.
+        </p>
+        <div class="tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">Ollama</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Prompt Design</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="learning" class="section-grid">
+      <div class="card">
+        <h2>Mitä opin</h2>
+        <ul class="learn-list">
+          <li>Miten moniprovider AI-rakenne kannattaa toteuttaa käytännössä</li>
+          <li>Miten provider-kohtaisia eroja käsitellään backendissä ja käyttöliittymässä</li>
+          <li>Miten promptteja voidaan suunnitella eri kehittäjäkäyttötilanteisiin</li>
+          <li>Miten lokaalisti ajettava AI integroidaan web-sovellukseen</li>
+          <li>Miten käyttöliittymää viimeistellään selkeämmäksi ja portfolioon sopivaksi</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Miksi projekti on merkityksellinen</h2>
+        <p>
+          Tämä projekti on erillinen työ, joka ei liity koulutehtäviini.
+          Projekti osoittaa, että osaan yhdistää käytännön ohjelmistokehityksen, AI:n hyödyntämisen,
+          integraatiot ja käyttöliittymän yhdeksi toimivaksi kokonaisuudeksi.
+        </p>
+        <p>
+          Samalla se liittyy suoraan siihen suuntaan, johon haluan kehittyä:
+          ohjelmistokehitykseen, jossa tekoäly on osa tuotetta ja kehitysprosessia.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Built by Henna Väätäinen
+    </footer>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script src="/script.js"></script>
+<div id="lightbox" class="lightbox hidden" aria-hidden="true">
+  <button id="lightbox-close" class="lightbox-close" aria-label="Close image">
+    ×
+  </button>
+
+  <button id="lightbox-prev" class="lightbox-nav lightbox-prev" aria-label="Previous image">
+    ‹
+  </button>
+
+  <img id="lightbox-img" src="" alt="Fullscreen view" />
+
+  <button id="lightbox-next" class="lightbox-nav lightbox-next" aria-label="Next image">
+    ›
+  </button>
+</div>
+
+<div id="lightbox" class="lightbox hidden">
+  <button id="lightbox-close" class="lightbox-close">×</button>
+  <button id="lightbox-prev" class="lightbox-nav lightbox-prev">‹</button>
+  <img id="lightbox-img" src="" />
+  <button id="lightbox-next" class="lightbox-nav lightbox-next">›</button>
+</div>
+
+<script>
+  const images = Array.from(document.querySelectorAll(".shot img"));
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = images[index].src;
+    lightbox.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    lightbox.classList.add("hidden");
+    document.body.style.overflow = "";
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  images.forEach((img, index) => {
+    img.addEventListener("click", () => openLightbox(index));
+  });
+
+  document.getElementById("lightbox-close").onclick = closeLightbox;
+  document.getElementById("lightbox-next").onclick = nextImage;
+  document.getElementById("lightbox-prev").onclick = prevImage;
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.classList.contains("hidden")) return;
+
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "ArrowLeft") prevImage();
+  });
+</script>
+
 </body>
 </html>
