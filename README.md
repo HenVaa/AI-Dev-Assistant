@@ -6,12 +6,6 @@ Supports both local models (via Ollama) and OpenAI-compatible APIs, allowing fle
 
 ---
 
-## 🌐 Project showcase
-
-View the project showcase here:
-
-https://henvaa.github.io/AI-Dev-Assistant/showcase.html
-
 ## 🌐 Live demo
 
 https://henvaa.github.io/AI-Dev-Assistant/
