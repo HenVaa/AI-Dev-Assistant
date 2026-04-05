@@ -103,7 +103,7 @@ http://localhost:3000
 ```
 ---
 
-### 🧪 Example use cases
+## 🧪 Example use cases
 
 - Understand unfamiliar code
 - Debug small issues
@@ -127,7 +127,7 @@ This project is intended for development, learning, and non-sensitive code analy
 
 ---
 
-### 🎯 What I learned
+## 🎯 What I learned
 
 - How to integrate AI APIs into applications
 - Handling multiple providers with different interfaces
@@ -137,7 +137,7 @@ This project is intended for development, learning, and non-sensitive code analy
 
 ---
 
-### 📌 Possible future improvements
+## 📌 Possible future improvements
 
 - Add more providers
 - Save history of analyses
