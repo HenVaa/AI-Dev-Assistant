@@ -8,7 +8,7 @@ Supports both local models (via Ollama) and OpenAI-compatible APIs, allowing fle
 
 ## 🌐 Live demo
 
-https://henvaa.github.io/AI-Dev-Assistant/
+[View the live showcase](https://henvaa.github.io/AI-Dev-Assistant/)
 
 ## ✨ Features
 
@@ -74,7 +74,17 @@ This project focuses on:
   - Ollama (local)
   - OpenAI-compatible API
 
-The provider layer abstracts differences between APIs, allowing the same UI to work with multiple models. This allows the same UI to work seamlessly with both local and cloud-based AI models.
+The provider layer abstracts differences between APIs, allowing the same UI to work with both local and cloud-based AI models.
+
+---
+
+## 📁 Project structure
+
+- `/index.html` → project showcase (GitHub Pages live demo)
+- `/public` → application frontend (served locally via Express)
+- `/public/index.html` → main UI for the application
+- `/src` → backend logic and AI provider integrations
+- `/images` → screenshots used in README and showcase
 
 ---
 

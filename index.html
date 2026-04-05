@@ -726,23 +726,28 @@
   function openLightbox(index) {
     currentIndex = index;
     lightboxImg.src = images[index].src;
+    lightboxImg.alt = images[index].alt;
     lightbox.classList.remove("hidden");
+    lightbox.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
   }
 
   function closeLightbox() {
     lightbox.classList.add("hidden");
+    lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
   }
 
   function nextImage() {
     currentIndex = (currentIndex + 1) % images.length;
     lightboxImg.src = images[currentIndex].src;
+    lightboxImg.alt = images[currentIndex].alt;
   }
 
   function prevImage() {
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     lightboxImg.src = images[currentIndex].src;
+    lightboxImg.alt = images[currentIndex].alt;
   }
 
   images.forEach((img, index) => {
