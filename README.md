@@ -2,7 +2,7 @@
 
 A multi-provider AI tool for analyzing code through one interface.
 
-Supports local models (Ollama) and OpenAI-compatible APIs.
+Supports both local models (via Ollama) and OpenAI-compatible APIs, allowing flexible use of AI in development workflows.
 
 ---
 
@@ -11,6 +11,10 @@ Supports local models (Ollama) and OpenAI-compatible APIs.
 View the project showcase here:
 
 https://henvaa.github.io/AI-Dev-Assistant/showcase.html
+
+## 🌐 Live demo
+
+https://henvaa.github.io/AI-Dev-Assistant/
 
 ## ✨ Features
 
@@ -76,7 +80,7 @@ This project focuses on:
   - Ollama (local)
   - OpenAI-compatible API
 
-The provider layer abstracts differences between APIs, allowing the same UI to work with multiple models.
+The provider layer abstracts differences between APIs, allowing the same UI to work with multiple models. This allows the same UI to work seamlessly with both local and cloud-based AI models.
 
 ---
 
@@ -94,9 +98,9 @@ npm run dev
 ```
 
 ### 3. Open in browser
-
+```bash
 http://localhost:3000
-
+```
 ---
 
 ### 🧪 Example use cases
@@ -105,6 +109,21 @@ http://localhost:3000
 - Debug small issues
 - Learn how code works
 - Improve code quality
+
+Example: Paste a JavaScript function and get a step-by-step explanation of how it works.
+
+---
+
+## 🔒 Privacy / Security
+
+This application does not store or persist submitted code by default.
+
+- When using **Ollama**, the code is processed locally on the user's machine through a local model.
+- When using an **OpenAI-compatible provider**, the code is sent to the selected external API service for processing.
+
+Users should avoid submitting sensitive, private, or proprietary code when using external providers.
+
+This project is intended for development, learning, and non-sensitive code analysis use cases.
 
 ---
 
