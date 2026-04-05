@@ -175,12 +175,13 @@ button.secondary:hover {
 .result-output {
   background: #071633;
   color: #f8fafc;
-  padding: 16px 20px;
+  padding: 22px 24px;
   border-radius: 16px;
   min-height: 240px;
-  overflow-x: auto;
-  font-size: 14px;
-  line-height: 1.45;
+  overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.65;
+  word-break: break-word;
 }
 
 .result-output > *:first-child {
@@ -195,45 +196,84 @@ button.secondary:hover {
 .result-output h2,
 .result-output h3,
 .result-output h4 {
-  margin: 10px 0 6px;
-  line-height: 1.25;
+  margin: 22px 0 12px;
+  line-height: 1.3;
+  color: #ffffff;
 }
 
 .result-output p {
-  margin: 4px 0;
+  margin: 10px 0 14px;
 }
 
 .result-output ul,
 .result-output ol {
-  margin: 6px 0 6px 20px;
-  padding-left: 18px;
+  margin: 10px 0 16px 24px;
+  padding-left: 20px;
 }
 
 .result-output li {
-  margin: 2px 0;
-  padding: 0;
+  margin: 10px 0;
+  padding-left: 2px;
 }
 
 .result-output li p {
-  margin: 0;
+  margin: 6px 0;
+}
+
+.result-output ol > li,
+.result-output ul > li {
+  margin-bottom: 14px;
 }
 
 .result-output pre {
-  margin: 6px 0;
-  padding: 12px 14px;
+  margin: 14px 0 18px;
+  padding: 16px 18px;
   background: #020b1f;
   border-radius: 12px;
   overflow-x: auto;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .result-output code {
   font-family: Consolas, Monaco, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .result-output pre code {
   display: block;
   white-space: pre-wrap;
-  line-height: 1.4;
+  word-break: break-word;
+  line-height: 1.55;
+}
+
+.result-output a {
+  color: #f9a8d4;
+}
+
+.result-output blockquote {
+  margin: 12px 0 16px;
+  padding: 10px 14px;
+  border-left: 4px solid #ec4899;
+  background: rgba(236, 72, 153, 0.08);
+  border-radius: 8px;
+}
+
+.result-output table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  display: block;
+  overflow-x: auto;
+}
+
+.result-output th,
+.result-output td {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 10px;
+  text-align: left;
 }
 
 @media (max-width: 700px) {

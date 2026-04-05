@@ -19,9 +19,23 @@ let appConfig = {
   }
 };
 
+marked.setOptions({
+  breaks: true,
+  gfm: true
+});
+
 function setLoading(isLoading) {
   submitBtn.disabled = isLoading;
   submitBtn.textContent = isLoading ? "Analyzing..." : "Analyze";
+}
+
+function renderMarkdownResult(markdownText) {
+  const safeMarkdown = markdownText || "";
+  resultOutput.innerHTML = marked.parse(safeMarkdown);
+
+  resultOutput.querySelectorAll("pre code").forEach((block) => {
+    hljs.highlightElement(block);
+  });
 }
 
 async function loadConfig() {
@@ -29,11 +43,20 @@ async function loadConfig() {
     const response = await fetch("/api/config");
     const data = await response.json();
     appConfig = data;
-    updateProviderUI();
+    updateProviderUI(true);
   } catch (error) {
     console.error("Failed to load config:", error);
-    updateProviderUI();
+    updateProviderUI(true);
   }
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 function getProviderPanelHTML(provider) {
@@ -47,7 +70,7 @@ function getProviderPanelHTML(provider) {
             <input
               id="ollamaBaseURL"
               type="text"
-              placeholder="http://localhost:11434"
+              placeholder="http://127.0.0.1:11434"
               value="http://127.0.0.1:11434"
             />
             <div class="helper-text">Default local Ollama server address.</div>
@@ -125,15 +148,6 @@ function buildProviderConfig(provider) {
   return {};
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
 providerInput.addEventListener("change", () => {
   updateProviderUI(false);
 });
@@ -180,9 +194,10 @@ form.addEventListener("submit", async (event) => {
       throw new Error(data.details || data.error || "Request failed.");
     }
 
-    resultOutput.innerHTML = marked.parse(data.result);
+    renderMarkdownResult(data.result);
     statusText.textContent = `Analysis complete with ${provider}.`;
   } catch (error) {
+    console.error(error);
     statusText.textContent = "Something went wrong.";
     resultOutput.textContent = error.message || "Unknown error.";
   } finally {
@@ -197,7 +212,7 @@ clearBtn.addEventListener("click", () => {
 });
 
 copyBtn.addEventListener("click", async () => {
-  const text = resultOutput.textContent;
+  const text = resultOutput.innerText;
 
   if (!text || text === "Your AI response will appear here.") {
     statusText.textContent = "Nothing to copy yet.";
